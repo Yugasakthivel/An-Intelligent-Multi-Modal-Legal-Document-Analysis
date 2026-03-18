@@ -1,0 +1,349 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 142 71% 45%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 215 25% 27%;
+
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 142 76% 36%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 142 71% 45%;
+
+    --radius: 0.75rem;
+
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+    --info: 199 89% 48%;
+    --info-foreground: 0 0% 100%;
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 215 16% 47%;
+    --sidebar-primary: 142 71% 45%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 138 76% 97%;
+    --sidebar-accent-foreground: 142 64% 24%;
+    --sidebar-border: 214 32% 91%;
+    --sidebar-ring: 142 71% 45%;
+
+    --gradient-start: 142 71% 45%;
+    --gradient-end: 142 76% 36%;
+
+    --risk-low: 142 71% 45%;
+    --risk-medium: 38 92% 50%;
+    --risk-high: 0 72% 51%;
+    --risk-critical: 0 84% 60%;
+
+    --confidence-start: 142 71% 45%;
+    --confidence-end: 160 84% 39%;
+
+    --intel-surface: 210 40% 98%;
+    --intel-surface-hover: 210 40% 96%;
+    --intel-border: 214 32% 91%;
+    --intel-glow: 142 71% 45%;
+
+    --ai-purple: 263 70% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply text-foreground antialiased;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    min-height: 100vh;
+  }
+
+  #root {
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    @apply tracking-tight;
+  }
+
+  code, pre {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer components {
+  /* Ambient glow — subtle green for light theme */
+  .ambient-glow {
+    position: relative;
+  }
+  .ambient-glow::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+      radial-gradient(ellipse at 15% 10%, rgba(34,197,94,0.04) 0%, transparent 50%),
+      radial-gradient(ellipse at 85% 80%, rgba(34,197,94,0.02) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Intel Panel System */
+  .intel-panel {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    @apply rounded-xl transition-all duration-300;
+  }
+
+  .intel-panel:hover {
+    border-color: #bbf7d0;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    transform: translateY(-2px);
+  }
+
+  .intel-panel-header {
+    @apply flex items-center gap-2.5 px-5 py-4 border-b border-border;
+  }
+
+  .intel-panel-body {
+    @apply p-5;
+  }
+
+  /* Glass surfaces — light */
+  .glass-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+
+  .glass-card-elevated {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    @apply transition-all duration-300;
+  }
+
+  .glass-card-elevated:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    border-color: #bbf7d0;
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #22c55e, #16a34a);
+  }
+
+  .gradient-bg {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+  }
+
+  .gradient-bg:hover {
+    filter: brightness(1.05);
+  }
+
+  .gradient-bg-subtle {
+    background: linear-gradient(135deg, rgba(34,197,94,0.06), rgba(22,163,74,0.03));
+  }
+
+  /* Status badges */
+  .status-badge-pending {
+    @apply bg-warning/10 text-warning border border-warning/20;
+  }
+  .status-badge-complete {
+    @apply bg-success/10 text-success border border-success/20;
+  }
+  .status-badge-error {
+    @apply bg-destructive/10 text-destructive border border-destructive/20;
+  }
+
+  /* Metric card */
+  .metric-card {
+    @apply glass-card-elevated rounded-xl p-5;
+  }
+
+  /* Metric icon */
+  .metric-icon {
+    background: #dcfce7;
+    border: 1px solid #bbf7d0;
+    @apply flex items-center justify-center rounded-lg w-8 h-8 transition-all duration-300;
+  }
+
+  .metric-icon:hover {
+    box-shadow: 0 0 12px rgba(34,197,94,0.2);
+  }
+
+  .metric-icon-accent {
+    background: #f3e8ff;
+    border: 1px solid #e9d5ff;
+  }
+
+  .metric-icon-warning {
+    background: #fef3c7;
+    border: 1px solid #fde68a;
+  }
+
+  .metric-icon-danger {
+    background: #fee2e2;
+    border: 1px solid #fecaca;
+  }
+
+  .metric-icon-success {
+    background: #dcfce7;
+    border: 1px solid #bbf7d0;
+  }
+
+  /* Pipeline nodes */
+  .pipeline-node {
+    @apply relative flex flex-col items-center gap-2 p-3 rounded-lg transition-all duration-300;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+  }
+  .pipeline-node-active {
+    border-color: #86efac;
+    background: #f0fdf4;
+    box-shadow: 0 0 16px -4px rgba(34,197,94,0.2);
+  }
+  .pipeline-node-complete {
+    border-color: #86efac;
+    background: #f0fdf4;
+  }
+  .pipeline-node-error {
+    border-color: #fecaca;
+    background: #fef2f2;
+  }
+
+  /* Risk cards */
+  .risk-card-low {
+    border-left: 3px solid hsl(var(--risk-low));
+    background: #f0fdf4;
+  }
+  .risk-card-medium {
+    border-left: 3px solid hsl(var(--risk-medium));
+    background: #fffbeb;
+  }
+  .risk-card-high {
+    border-left: 3px solid hsl(var(--risk-high));
+    background: #fef2f2;
+  }
+  .risk-card-critical {
+    border-left: 3px solid hsl(var(--risk-critical));
+    background: #fef2f2;
+  }
+
+  /* Intel indicator dots */
+  .intel-dot {
+    @apply w-2 h-2 rounded-full;
+  }
+  .intel-dot-active {
+    background: #22c55e;
+    box-shadow: 0 0 8px rgba(34,197,94,0.5);
+  }
+  .intel-dot-warning {
+    background: #f59e0b;
+    box-shadow: 0 0 8px rgba(245,158,11,0.5);
+  }
+  .intel-dot-danger {
+    background: #ef4444;
+    box-shadow: 0 0 8px rgba(239,68,68,0.5);
+  }
+
+  /* AI insights panel */
+  .ai-insights-panel {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    @apply rounded-xl transition-all duration-300;
+  }
+
+  .ai-insights-panel:hover {
+    border-color: #86efac;
+    box-shadow: 0 4px 16px rgba(34,197,94,0.08);
+  }
+
+  /* Scan line effect */
+  .scan-line {
+    @apply relative overflow-hidden;
+  }
+  .scan-line::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(34,197,94,0.02) 50%,
+      transparent 100%
+    );
+    animation: scan 4s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  /* Progress bar glow */
+  .progress-glow {
+    box-shadow: 0 0 8px rgba(34,197,94,0.3);
+  }
+
+  /* Sidebar border */
+  .sidebar-glow {
+    border-right: 1px solid #e2e8f0;
+  }
+}
+
+@keyframes scan {
+  0%, 100% { transform: translateY(-100%); }
+  50% { transform: translateY(100%); }
+}
+
+/* Custom scrollbar */
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0,0,0,0.1) transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.1);
+    border-radius: 3px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: rgba(0,0,0,0.18);
+  }
+}

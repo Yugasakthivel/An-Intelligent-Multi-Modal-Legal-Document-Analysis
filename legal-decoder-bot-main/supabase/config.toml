@@ -1,0 +1,7 @@
+project_id = "dmmsgvjtwoanzaujpghc"
+
+[functions.analyze-document]
+verify_jwt = false
+
+[functions.chat-document]
+verify_jwt = false
